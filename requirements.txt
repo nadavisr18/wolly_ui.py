@@ -1,0 +1,2 @@
+streamlit==0.85.0
+smbus2==0.4.1
