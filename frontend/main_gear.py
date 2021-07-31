@@ -26,18 +26,14 @@ def main_gear_tab():
 
 def engine_control_sliders() -> Tuple[int, int]:
     """
-    create 3 sliders for controlling the main motors
-    :return: tuple of two ints for each motor speed
+    create a slider and angle input for controlling the main motors
+    :return: (motor speed, angle)
     """
     default = 0
-    total = st.slider("Both Motors", -100, 100, default, step=10)
-    default_a = total
-    default_b = total
-    motor_a = st.slider('Motor A', -100, 100, default_a, step=10)
-    motor_b = st.slider('Motor B', -100, 100, default_b, step=10)
+    motor_speed = st.slider("Motors Speed", -100, 100, default, step=10)
+    angle = st.number_input("Angle", min_value=-180, max_value=180, value=0)
     if st.button("SEND"):
-        print("here")
-        return motor_a, motor_b
+        return motor_speed, angle
 
 
 def display_engine_stats(display, motors_stats: Dict):
