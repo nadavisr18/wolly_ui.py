@@ -1,7 +1,7 @@
 import time
 import streamlit as st
 from typing import Tuple, Dict, Union
-from communication import Comm
+# from communication import Comm
 
 NUM_COLUMNS = 4
 TEST_DATA = {"Motor A Angle": 0, "Motor B Angle": 0, "Motor C Angle": 0, "Motor D Angle": 0, "Motor E Angle": 0, "Motor F Angle": 0, "Grabber Angle": 0}
@@ -28,6 +28,10 @@ def arm_motors_tab():
 
 
 def arm_motor_controls() -> Tuple[int, int, int, int, int, int]:
+    """
+    create 6 sliders, one for each arm motor
+    :return: 6 int values, one for each arm motor
+    """
     st.header("Motors")
     default = 0
     a = st.slider("Motor A", -100, 100, default, step=10)
@@ -41,6 +45,10 @@ def arm_motor_controls() -> Tuple[int, int, int, int, int, int]:
 
 
 def grabber() -> int:
+    """
+    create 3 buttons for controlling the grabber
+    :return: 0 for STOP | 1 for CLOSE | -1 for OPEN
+    """
     st.header("Grabber")
     col1, col2, col3 = st.beta_columns(3)
     output = None
@@ -54,6 +62,11 @@ def grabber() -> int:
 
 
 def display_motors_stats(display, motors_stats: Dict):
+    """
+    go over each key value pair in the motor stats dictionary and display them
+    :param display: an empty streamlit object (required for having updating text fields)
+    :param motors_stats: a dictionary with all the values from the arduino | key = human readable name | value = value from arduino
+    """
     cols = display.beta_columns(NUM_COLUMNS)
     for i, (key, value) in enumerate(motors_stats.items()):
         cols[i % NUM_COLUMNS].subheader(key)

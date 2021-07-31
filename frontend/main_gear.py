@@ -25,6 +25,10 @@ def main_gear_tab():
 
 
 def engine_control_sliders() -> Tuple[int, int]:
+    """
+    create 3 sliders for controlling the main motors
+    :return: tuple of two ints for each motor speed
+    """
     default = 0
     total = st.slider("Both Motors", -100, 100, default, step=10)
     default_a = total
@@ -36,8 +40,13 @@ def engine_control_sliders() -> Tuple[int, int]:
         return motor_a, motor_b
 
 
-def display_engine_stats(display, engine_stats: Dict):
+def display_engine_stats(display, motors_stats: Dict):
+    """
+    go over each key value pair in the motor stats dictionary and display them
+    :param display: an empty streamlit object (required for having updating text fields)
+    :param motors_stats: a dictionary with all the values from the arduino | key = human readable name | value = value from arduino
+    """
     cols = display.beta_columns(NUM_COLUMNS)
-    for i, (key, value) in enumerate(engine_stats.items()):
+    for i, (key, value) in enumerate(motors_stats.items()):
         cols[i%NUM_COLUMNS].subheader(key)
         cols[i%NUM_COLUMNS].text(value)
