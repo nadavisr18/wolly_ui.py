@@ -25,9 +25,11 @@ def main_gear_tab():
     while True:
         time.sleep(0.01)
         TEST_DATA[list(TEST_DATA.keys())[0]] += 1
-        motor_data = comm.get_main_motors_data()
-        parse_input_json('MAIN_MOTORS', motor_data)
+        raw_motor_data = comm.get_main_motors_data()
+        motor_data = parse_input_json('MAIN_MOTORS', raw_motor_data)
         display_engine_stats(display, motor_data)
+
+        # if there's new data motors_command will be dict, if there's no new data it will be None
         if isinstance(motors_command, dict):
             output_message = create_output_message('MAIN_MOTORS', motors_command)
             comm.send_main_motors_command(output_message)

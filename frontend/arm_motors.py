@@ -28,14 +28,14 @@ def arm_motors_tab():
         motor_data = parse_input_json('ARM_MOTORS', raw_motor_data)
         display_motors_stats(display, motor_data)
 
-        # if there's new data motors_control will be a tuple, if there's no new data it will be None
+        # if there's new data motors_control will be a dict, if there's no new data it will be None
         if isinstance(motors_control, dict):
             message = create_output_message("ARM_MOTORS", motors_control)
             comm.send_arm_motor_command(message)
             print("Motor Commands: ", motors_control)
             motors_control = None
 
-        # if there's new data grabber_state will be an int, if there's no new data it will be None
+        # if there's new data grabber_state will be dict, if there's no new data it will be None
         if isinstance(grabber_state, dict):
             message = create_output_message("GRABBER_COMMAND", grabber_state)
             comm.send_grabber_command(message)
