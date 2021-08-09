@@ -1,33 +1,49 @@
 import time
 import streamlit as st
+from communication import Comm
 from typing import Tuple, Dict, Union
-# from communication import Comm
+from .utils import create_output_message, parse_input_json
 
 NUM_COLUMNS = 4
 TEST_DATA = {"Motor A Angle": 0, "Motor B Angle": 0, "Motor C Angle": 0, "Motor D Angle": 0, "Motor E Angle": 0, "Motor F Angle": 0, "Grabber Angle": 0}
-# comm = Comm()
+comm = Comm()
 
 
 def arm_motors_tab():
+    """
+    generates the arm tab
+    first creates a slider for each arm motor
+    then creates buttons for grabber control
+    then start the data receiving loop and update the next values on the screen every 0.01 seconds with info from the arduino
+    """
     motors_control = arm_motor_controls()
     grabber_state = grabber()
+
+    # st.empty lets you have a widget with static location on the page, so it can be updated instead of
+    # adding a million widgets one under another
     display = st.empty()
     while True:
         time.sleep(0.01)
-        TEST_DATA['Motor A Angle'] += 1
-        motor_data = TEST_DATA# comm.get_arm_data()
+        raw_motor_data = comm.get_arm_data()
+        motor_data = parse_input_json('ARM_MOTORS', raw_motor_data)
         display_motors_stats(display, motor_data)
-        if isinstance(motors_control, tuple):
-            # comm.send_arm_motor_command(*arm_motors_command)
+
+        # if there's new data motors_control will be a tuple, if there's no new data it will be None
+        if isinstance(motors_control, dict):
+            message = create_output_message("ARM_MOTORS", motors_control)
+            comm.send_arm_motor_command(message)
             print("Motor Commands: ", motors_control)
             motors_control = None
-        if isinstance(grabber_state, int):
-            # comm.send_grabber_command(arm_motors_command)
+
+        # if there's new data grabber_state will be an int, if there's no new data it will be None
+        if isinstance(grabber_state, dict):
+            message = create_output_message("GRABBER_COMMAND", grabber_state)
+            comm.send_grabber_command(message)
             print("Grabber State: ", grabber_state)
             grabber_state = None
 
 
-def arm_motor_controls() -> Tuple[int, int, int, int, int, int]:
+def arm_motor_controls() -> Dict[str, int]:
     """
     create 6 sliders, one for each arm motor
     :return: 6 int values, one for each arm motor
@@ -41,10 +57,10 @@ def arm_motor_controls() -> Tuple[int, int, int, int, int, int]:
     e = st.slider("Motor E", -100, 100, default, step=10)
     f = st.slider("Motor F", -100, 100, default, step=10)
     if st.button("SEND"):
-        return a, b, c, d, e, f
+        return {"A": a, "B": b, "C": c, "D": d, "E": e, "F": f}
 
 
-def grabber() -> int:
+def grabber() -> dict:
     """
     create 3 buttons for controlling the grabber
     :return: 0 for STOP | 1 for CLOSE | -1 for OPEN
@@ -58,7 +74,7 @@ def grabber() -> int:
         output = -1
     if col3.button("CLOSE"):
         output = 1
-    return output
+    return {"GRABBER_STATE": output}
 
 
 def display_motors_stats(display, motors_stats: Dict):

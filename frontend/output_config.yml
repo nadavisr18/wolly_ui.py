@@ -1,0 +1,14 @@
+ARM_MOTORS:
+  - A: 00
+  - B: 01
+  - C: 02
+  - D: 03
+  - E: 04
+  - F: 05
+
+GRABBER_COMMAND:
+  - GRABBR_STATE: 06
+
+MAIN_MOTORS:
+  - SPEED: 07
+  - ANGLE: 08

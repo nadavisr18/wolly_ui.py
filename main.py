@@ -1,5 +1,8 @@
 from frontend import *
 
+# TODO: implement parse_ins and parse_gps functions to turn their input string into a dictionary in communication.py
+# TODO: fill out input_config.yml and output_config.yml according to the correct protocol
+
 
 def main():
     tab = select_tab()
