@@ -37,7 +37,7 @@ def arm_motors_tab():
         # if there's new data grabber_state will be dict, if there's no new data it will be None
         if isinstance(grabber_state, dict):
             message = create_output_message("GRABBER_COMMAND", grabber_state)
-            comm.send_grabber_command(message)
+            comm.send_arm_motor_command(message)
             print("Grabber State: ", grabber_state)
             grabber_state = None
 

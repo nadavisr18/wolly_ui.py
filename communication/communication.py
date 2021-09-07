@@ -61,10 +61,6 @@ class Comm:
         msg = i2c_msg.write(MAIN_ARDUINO_ADDRESS, output_message)
         self.bus.i2c_rdwr(msg)
 
-    def send_grabber_command(self, output_message: str):
-        msg = i2c_msg.write(ARM_ARDUINO_ADDRESS, output_message)
-        self.bus.i2c_rdwr(msg)
-
     def send_arm_motor_command(self, output_message: str):
         msg = i2c_msg.write(ARM_ARDUINO_ADDRESS, output_message)
         self.bus.i2c_rdwr(msg)
