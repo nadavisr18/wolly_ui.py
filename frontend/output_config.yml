@@ -1,9 +1,9 @@
 ARM_MOTORS:
-  - A: 00
-  - B: 01
-  - C: 02
-  - D: 03
-  - E: 04
+  A: 00
+  B: 01
+  C: 02
+  D: 03
+  E: 04
 
 GRABBER_COMMAND:
   - GRABBR_STATE: 06
