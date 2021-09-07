@@ -1,11 +1,10 @@
 import time
 import streamlit as st
-from .utils import parse_input_json, create_output_message
+from .utils import parse_input_json, create_output_message, output_config
 from communication import Comm
 from typing import Tuple, Dict, Any
 
 NUM_COLUMNS = 4
-TEST_DATA = {"Motor A Speed": 3.14, "Motor B Speed": 1.96, "Motor A Angle": 190, "Motor B Angle": 220, "Acceleration": 0.88, "Compass Angle": 67, "Speed": 0.9, "Angular Acceleration": 0.05}
 comm = Comm()
 
 
@@ -23,8 +22,7 @@ def main_gear_tab():
     # adding a million widgets one under another
     display = st.empty()
     while True:
-        time.sleep(0.01)
-        TEST_DATA[list(TEST_DATA.keys())[0]] += 1
+        time.sleep(1/output_config['FPS'])
         raw_motor_data = comm.get_main_motors_data()
         motor_data = parse_input_json('MAIN_MOTORS', raw_motor_data)
         display_engine_stats(display, motor_data)

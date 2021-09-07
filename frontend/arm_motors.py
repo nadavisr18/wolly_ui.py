@@ -2,10 +2,9 @@ import time
 import streamlit as st
 from communication import Comm
 from typing import Tuple, Dict, Union
-from .utils import create_output_message, parse_input_json, input_config
+from .utils import create_output_message, parse_input_json, output_config
 
 NUM_COLUMNS = 4
-TEST_DATA = {"Motor A Angle": 0, "Motor B Angle": 0, "Motor C Angle": 0, "Motor D Angle": 0, "Motor E Angle": 0, "Motor F Angle": 0, "Grabber Angle": 0}
 comm = Comm()
 
 
@@ -23,7 +22,7 @@ def arm_motors_tab():
     # adding a million widgets one under another
     display = st.empty()
     while True:
-        time.sleep(1/input_config['FPS'])
+        time.sleep(1/output_config['FPS'])
         raw_motor_data = comm.get_arm_data()
         motor_data = parse_input_json('ARM_MOTORS', raw_motor_data)
         display_motors_stats(display, motor_data)
