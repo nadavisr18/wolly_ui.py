@@ -18,6 +18,8 @@ GPS_MESSAGE_LENGTH = config['GPS_MESSAGE_LENGTH']
 INS_ADDRESS = config['INS_ADDRESS']
 INS_MESSAGE_LENGTH = config['INS_MESSAGE_LENGTH']
 
+OUTPUT_MESSAGE_LENGTH = 32
+
 
 class Comm:
     def __init__(self):
@@ -58,12 +60,18 @@ class Comm:
         return json.loads(string_message)
 
     def send_main_motors_command(self, output_message: str):
-        msg = i2c_msg.write(MAIN_ARDUINO_ADDRESS, output_message+" ")
-        self.bus.i2c_rdwr(msg)
+        divided_msgs = [output_message[i:i+OUTPUT_MESSAGE_LENGTH] for i in range(0, len(output_message), OUTPUT_MESSAGE_LENGTH)]
+        output_msgs = []
+        for message in divided_msgs:
+            output_msgs.append(i2c_msg.write(MAIN_ARDUINO_ADDRESS, message))
+        self.bus.i2c_rdwr(*output_msgs)
 
     def send_arm_motor_command(self, output_message: str):
-        msg = i2c_msg.write(ARM_ARDUINO_ADDRESS, output_message+" ")
-        self.bus.i2c_rdwr(msg)
+        divided_msgs = [output_message[i:i+OUTPUT_MESSAGE_LENGTH] for i in range(0, len(output_message), OUTPUT_MESSAGE_LENGTH)]
+        output_msgs = []
+        for message in divided_msgs:
+            output_msgs.append(i2c_msg.write(ARM_ARDUINO_ADDRESS, message))
+        self.bus.i2c_rdwr(*output_msgs)
 
     @staticmethod
     def bytes_to_string(bytes_list: List[int]) -> str:
