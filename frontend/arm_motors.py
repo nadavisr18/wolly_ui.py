@@ -2,7 +2,7 @@ import time
 import streamlit as st
 from communication import Comm
 from typing import Tuple, Dict, Union
-from .utils import create_output_message, parse_input_json
+from .utils import create_output_message, parse_input_json, input_config
 
 NUM_COLUMNS = 4
 TEST_DATA = {"Motor A Angle": 0, "Motor B Angle": 0, "Motor C Angle": 0, "Motor D Angle": 0, "Motor E Angle": 0, "Motor F Angle": 0, "Grabber Angle": 0}
@@ -23,7 +23,7 @@ def arm_motors_tab():
     # adding a million widgets one under another
     display = st.empty()
     while True:
-        time.sleep(0.01)
+        time.sleep(1/input_config['FPS'])
         raw_motor_data = comm.get_arm_data()
         motor_data = parse_input_json('ARM_MOTORS', raw_motor_data)
         display_motors_stats(display, motor_data)
@@ -55,9 +55,8 @@ def arm_motor_controls() -> Dict[str, int]:
     d = st.slider("Motor D", -100, 100, default, step=10)
     c = st.slider("Motor C", -100, 100, default, step=10)
     e = st.slider("Motor E", -100, 100, default, step=10)
-    f = st.slider("Motor F", -100, 100, default, step=10)
     if st.button("SEND"):
-        return {"A": a, "B": b, "C": c, "D": d, "E": e, "F": f}
+        return {"A": a, "B": b, "C": c, "D": d, "E": e}
 
 
 def grabber() -> dict:

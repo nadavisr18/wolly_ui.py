@@ -38,8 +38,7 @@ class Comm:
         self.bus.i2c_rdwr(arduino_message, gps_message, ins_message)
 
         arduino_json = self.bytes_to_string(list(arduino_message))
-        arduino_dict = json.loads(arduino_json
-                                        )
+        arduino_dict = json.loads(arduino_json)
         gps_message = self.bytes_to_string(list(arduino_message))
         gps_dict = self.parse_gps(gps_message)
 
