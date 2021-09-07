@@ -35,7 +35,7 @@ class Comm:
         arduino_message = i2c_msg.read(MAIN_ARDUINO_ADDRESS, MAIN_ARDUINO_MESSAGE_LENGTH)
         gps_message = i2c_msg.read(GPS_ADDRESS, GPS_MESSAGE_LENGTH)
         ins_message = i2c_msg.read(INS_ADDRESS, INS_MESSAGE_LENGTH)
-        self.bus.i2c_rdwr(arduino_message, gps_message, ins_message)
+        self.bus.i2c_rdwr(arduino_message)#, gps_message, ins_message)
 
         arduino_json = self.bytes_to_string(list(arduino_message))
         arduino_dict = json.loads(arduino_json)
