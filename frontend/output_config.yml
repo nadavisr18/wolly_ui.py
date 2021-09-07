@@ -1,15 +1,15 @@
 ARM_MOTORS:
-  A: 00
-  B: 01
-  C: 02
-  D: 03
-  E: 04
+  A: 0
+  B: 1
+  C: 2
+  D: 3
+  E: 4
 
 GRABBER_COMMAND:
-  GRABBR_STATE: 06
+  GRABBER_STATE: 5
 
 MAIN_MOTORS:
-  SPEED: 07
-  ANGLE: 08
+  SPEED: 6
+  ANGLE: 7
 
 FPS: 10
