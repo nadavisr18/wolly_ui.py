@@ -31,7 +31,7 @@ def main_gear_tab():
         if isinstance(motors_command, dict):
             output_message = create_output_message('MAIN_MOTORS', motors_command)
             comm.send_main_motors_command(output_message)
-            print(motors_command)
+            print(output_message)
             motors_command = None
 
 

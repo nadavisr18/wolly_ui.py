@@ -31,14 +31,14 @@ def arm_motors_tab():
         if isinstance(motors_control, dict):
             message = create_output_message("ARM_MOTORS", motors_control)
             comm.send_arm_motor_command(message)
-            print("Motor Commands: ", motors_control)
+            print(message)
             motors_control = None
 
         # if there's new data grabber_state will be dict, if there's no new data it will be None
         if isinstance(grabber_state, dict):
             message = create_output_message("GRABBER_COMMAND", grabber_state)
             comm.send_arm_motor_command(message)
-            print("Grabber State: ", grabber_state)
+            print(message)
             grabber_state = None
 
 
