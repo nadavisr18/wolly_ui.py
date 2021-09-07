@@ -23,7 +23,7 @@ def arm_motors_tab():
     display = st.empty()
     while True:
         time.sleep(1/output_config['FPS'])
-        raw_motor_data = comm.get_arm_data()
+        raw_motor_data = ""#comm.get_arm_data()
         motor_data = parse_input_json('ARM_MOTORS', raw_motor_data)
         display_motors_stats(display, motor_data)
 
