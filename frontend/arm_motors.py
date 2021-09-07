@@ -72,7 +72,8 @@ def grabber() -> dict:
         output = -1
     if col3.button("CLOSE"):
         output = 1
-    return {"GRABBER_STATE": output}
+    if isinstance(output, int):
+        return {"GRABBER_STATE": output}
 
 
 def display_motors_stats(display, motors_stats: Dict):
