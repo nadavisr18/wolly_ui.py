@@ -50,12 +50,12 @@ def arm_motor_controls() -> Dict[str, int]:
     st.header("Motors")
     exp = st.beta_expander("Motors Control")
     default = 0
-    a = exp.slider("Motor A", -180, 180, default, step=10)
-    b = exp.slider("Motor B", -180, 180, default, step=10)
-    d = exp.slider("Motor D", -180, 180, default, step=10)
-    c = exp.slider("Motor C", -180, 180, default, step=10)
-    e = exp.slider("Motor E", -180, 180, default, step=10)
-    if st.button("SEND"):
+    a = exp.slider("Motor A", 0, 360, default, step=10)
+    b = exp.slider("Motor B", 0, 360, default, step=10)
+    d = exp.slider("Motor D", 0, 360, default, step=10)
+    c = exp.slider("Motor C", 0, 360, default, step=10)
+    e = exp.slider("Motor E", 0, 360, default, step=10)
+    if exp.button("SEND"):
         return {"A": a, "B": b, "C": c, "D": d, "E": e}
 
 

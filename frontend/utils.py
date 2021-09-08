@@ -1,5 +1,6 @@
 import json
 import yaml
+import numpy as np
 import streamlit as st
 from typing import Dict
 
@@ -30,7 +31,8 @@ def create_output_message(mode: str, data: Dict) -> str:
     for key in data.keys():
         data_entry = {key_mapping[key]: data[key]}
         output_data.update(data_entry)
-    return "".join([f"{key}{value}" for key, value in output_data.items()])
+    float2byte = lambda x: "".join(chr(byte) for byte in list(np.array(x).tobytes()))
+    return "".join([f"{key}{float2byte(value)}" for key, value in output_data.items()])
 
 
 def parse_input_json(mode: str, data: Dict) -> Dict:
