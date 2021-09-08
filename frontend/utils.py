@@ -30,7 +30,9 @@ def create_output_message(mode: str, data: Dict[str, int]) -> List[int]:
     float2byte = lambda x: list(np.array(x).tobytes())
     output_data = []
     for key in data.keys():
-        output_data.extend([ord(key_mapping[key]), float2byte(data[key])])
+        package_data = [ord(key_mapping[key])]
+        package_data.extend(float2byte(data[key]))
+        output_data.extend(package_data)
     return output_data
 
 

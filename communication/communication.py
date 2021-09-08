@@ -59,19 +59,13 @@ class Comm:
         string_message = self.bytes_to_string(list(msg))
         return json.loads(string_message)
 
-    def send_main_motors_command(self, output_message: str):
-        divided_msgs = [output_message[i:i+OUTPUT_MESSAGE_LENGTH] for i in range(0, len(output_message), OUTPUT_MESSAGE_LENGTH)]
-        output_msgs = []
-        for message in divided_msgs:
-            output_msgs.append(i2c_msg.write(MAIN_ARDUINO_ADDRESS, message))
-        self.bus.i2c_rdwr(*output_msgs)
+    def send_main_motors_command(self, output_message: List[int]):
+        output_msg = i2c_msg.write(MAIN_ARDUINO_ADDRESS, output_message)
+        self.bus.i2c_rdwr(output_msg)
 
-    def send_arm_motor_command(self, output_message: str):
-        divided_msgs = [output_message[i:i+OUTPUT_MESSAGE_LENGTH] for i in range(0, len(output_message), OUTPUT_MESSAGE_LENGTH)]
-        output_msgs = []
-        for message in divided_msgs:
-            output_msgs.append(i2c_msg.write(ARM_ARDUINO_ADDRESS, message))
-        self.bus.i2c_rdwr(*output_msgs)
+    def send_arm_motor_command(self, output_message: List[int]):
+        output_msg = i2c_msg.write(ARM_ARDUINO_ADDRESS, output_message)
+        self.bus.i2c_rdwr(output_msg)
 
     @staticmethod
     def bytes_to_string(bytes_list: List[int]) -> str:
