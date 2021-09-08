@@ -1,4 +1,5 @@
 ARM_MOTORS:
+  FPS: 10
   A: a
   B: b
   C: c
@@ -9,7 +10,6 @@ GRABBER_COMMAND:
   GRABBER_STATE: g
 
 MAIN_MOTORS:
+  FPS: 10
   SPEED: s
   ANGLE: a
-
-FPS: 10

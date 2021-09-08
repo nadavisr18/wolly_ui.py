@@ -1,8 +1,10 @@
 from frontend import main as display_ui
 from inverse_kinematics import InverseKinematics
 
-# TODO: implement parse_ins and parse_gps functions to turn their input string into a dictionary in communication.py
-# TODO: fill out input_config.yml and output_config.yml according to the correct protocol
+# TODO: ARM COMMS & CONTROL (IK)
+# TODO: INS & GPS
+# TODO: MAIN MOTORS
+# TODO: IMAGE RECOGNITION
 
 
 def main():
