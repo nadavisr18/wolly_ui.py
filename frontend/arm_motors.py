@@ -52,8 +52,8 @@ def arm_motor_controls() -> Dict[str, int]:
     default = 0
     a = exp.slider("Motor A", 0, 360, default, step=10)
     b = exp.slider("Motor B", 0, 360, default, step=10)
-    d = exp.slider("Motor D", 0, 360, default, step=10)
     c = exp.slider("Motor C", 0, 360, default, step=10)
+    d = exp.slider("Motor D", 0, 360, default, step=10)
     e = exp.slider("Motor E", 0, 360, default, step=10)
     if exp.button("SEND"):
         return {"A": a, "B": b, "C": c, "D": d, "E": e}

@@ -2,7 +2,7 @@ import json
 import yaml
 import numpy as np
 import streamlit as st
-from typing import Dict
+from typing import Dict, List
 
 
 def select_tab() -> str:
@@ -19,20 +19,19 @@ with open("frontend/input_config.yml") as file:
     input_config = yaml.load(file, yaml.FullLoader)
 
 
-def create_output_message(mode: str, data: Dict) -> str:
+def create_output_message(mode: str, data: Dict[str, int]) -> List[int]:
     """
     generate a data package that will be sent to the arduino
     :param mode: what kind of data is this. each kind has it's own output json configuration
     :param data: data to be sent
-    :return: data package as a string
+    :return: data package as a list of bytes
     """
     key_mapping = output_config[mode]
-    output_data = {}
+    float2byte = lambda x: list(np.array(x).tobytes())
+    output_data = []
     for key in data.keys():
-        data_entry = {key_mapping[key]: data[key]}
-        output_data.update(data_entry)
-    float2byte = lambda x: "".join(chr(byte) for byte in list(np.array(x).tobytes()))
-    return "".join([f"{key}{float2byte(value)}" for key, value in output_data.items()])
+        output_data.extend([ord(key_mapping[key]), float2byte(data[key])])
+    return output_data
 
 
 def parse_input_json(mode: str, data: Dict) -> Dict:
