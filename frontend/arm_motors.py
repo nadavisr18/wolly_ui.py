@@ -48,12 +48,13 @@ def arm_motor_controls() -> Dict[str, int]:
     :return: 6 int values, one for each arm motor
     """
     st.header("Motors")
+    exp = st.beta_expander()
     default = 0
-    a = st.slider("Motor A", -100, 100, default, step=10)
-    b = st.slider("Motor B", -100, 100, default, step=10)
-    d = st.slider("Motor D", -100, 100, default, step=10)
-    c = st.slider("Motor C", -100, 100, default, step=10)
-    e = st.slider("Motor E", -100, 100, default, step=10)
+    a = exp.slider("Motor A", -180, 180, default, step=10)
+    b = exp.slider("Motor B", -180, 180, default, step=10)
+    d = exp.slider("Motor D", -180, 180, default, step=10)
+    c = exp.slider("Motor C", -180, 180, default, step=10)
+    e = exp.slider("Motor E", -180, 180, default, step=10)
     if st.button("SEND"):
         return {"A": a, "B": b, "C": c, "D": d, "E": e}
 

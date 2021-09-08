@@ -20,17 +20,17 @@ with open("frontend/input_config.yml") as file:
 
 def create_output_message(mode: str, data: Dict) -> str:
     """
-    generate a dictionary that will be sent to the arduino
+    generate a data package that will be sent to the arduino
     :param mode: what kind of data is this. each kind has it's own output json configuration
     :param data: data to be sent
-    :return:
+    :return: data package as a string
     """
     key_mapping = output_config[mode]
     output_data = {}
     for key in data.keys():
         data_entry = {key_mapping[key]: data[key]}
         output_data.update(data_entry)
-    return json.dumps(output_data)
+    return "".join([f"{key}{value}" for key, value in output_data.items()])
 
 
 def parse_input_json(mode: str, data: Dict) -> Dict:
