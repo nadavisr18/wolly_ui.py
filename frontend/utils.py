@@ -31,6 +31,7 @@ def create_output_message(mode: str, data: Dict[str, int]) -> List[int]:
     output_data = []
     for key in data.keys():
         package_data = [ord(key_mapping[key])]
+        print(data[key], float2byte(data[key]))
         package_data.extend(float2byte(data[key]))
         output_data.extend(package_data)
     return output_data
