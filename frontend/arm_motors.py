@@ -48,7 +48,7 @@ def arm_motor_controls() -> Dict[str, int]:
     :return: 6 int values, one for each arm motor
     """
     st.header("Motors")
-    exp = st.beta_expander()
+    exp = st.beta_expander("Motors Control")
     default = 0
     a = exp.slider("Motor A", -180, 180, default, step=10)
     b = exp.slider("Motor B", -180, 180, default, step=10)
