@@ -27,11 +27,10 @@ def create_output_message(mode: str, data: Dict[str, int]) -> List[int]:
     :return: data package as a list of bytes
     """
     key_mapping = output_config[mode]
-    float2byte = lambda x: list(np.array(x).tobytes())
+    float2byte = lambda x: list(np.array(x).tobytes())[:4]
     output_data = []
     for key in data.keys():
         package_data = [ord(key_mapping[key])]
-        print(data[key], float2byte(data[key]))
         package_data.extend(float2byte(data[key]))
         output_data.extend(package_data)
     return output_data
